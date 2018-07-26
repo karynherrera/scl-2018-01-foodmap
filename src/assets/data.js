@@ -2,8 +2,8 @@ window.restaurants = [];
 window.map;
 window.infowindow;
 
-const usingApi = (() => {
-  // Creamos un mapa con las coordenadas actuales
+const initMap = (() => {
+  // indicamos las coordenadas segun el gps
   navigator.geolocation.getCurrentPosition((pos) => {
     lat = pos.coords.latitude;
     lon = pos.coords.longitude;
@@ -16,21 +16,23 @@ const usingApi = (() => {
       mapTypeId: google.maps.MapTypeId.MAP
     };
 
-    map = new google.maps.Map(document.getElementById('mapa'), mapOptions);
-
-    // Creamos el infowindow
+    map = new google.maps.Map(document.getElementById('map'), mapOptions,
+      {
+        center: {lat: lat,
+          lng: lon},
+        zoom: 15
+      });
+    
     infowindow = new google.maps.InfoWindow();
-
-    // Especificamos la localización, el radio y el tipo de lugares que queremos obtener
     let request = {
       location: myLatlng,
-      radius: 5000,
+      radius: 1000,
       types: ['restaurant']
     };
 
-    // Creamos el servicio PlaceService y enviamos la petición.
     let service = new google.maps.places.PlacesService(map);
 
+    // ahora buscamos los lugares cercanos a las coordenadas de nuestro GPS
     service.nearbySearch(request, (results, status) => {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
         restaurants = results;
@@ -38,12 +40,30 @@ const usingApi = (() => {
         for (var i = 0; i < results.length; i++) {
           crearMarcador(results[i]);
           console.log(results[i].name);
+
+          // mostramos la info de cada restaurante cercano
+          service.getDetails({
+            placeId: results[i].place_id
+          }, function(place, status) {
+            if (status === google.maps.places.PlacesServiceStatus.OK) {
+              var marker = new google.maps.Marker({
+                map: map,
+                position: place.geometry.location
+              });
+              google.maps.event.addListener(marker, 'mouseover', function() {
+                infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
+                place.formatted_address + '</div>');
+                infowindow.open(map, this);
+              });
+            }
+          });
         }
       }
     });
   });
-})
 
+  
+});
 
 const crearMarcador = ((place) => {
   // Creamos un marcador
