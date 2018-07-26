@@ -36,7 +36,7 @@ const initMap = (() => {
     service.nearbySearch(request, (results, status) => {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
         restaurants = results;
-
+        console.log(restaurants);
         /* for (let i = 0; i < restaurants.length; i++) {
           console.log(' Restaurantes ' + restaurants[i].name);
         } */
@@ -56,6 +56,14 @@ const initMap = (() => {
           let optionNode = document.createElement('option');
           let star = document.getElementById('stars');
           let stars = document.createElement('option');
+          
+          optionNode.setAttribute('class', 'modalInfo');
+          optionNode.setAttribute('data-toggle', 'modal');
+          optionNode.setAttribute('data-target', '.bd-example-modal-lg');
+          optionNode.setAttribute('onclick', 'modalInformation()');
+          
+// id="terminos" data-toggle="modal" data-target=".bd-example-modal-lg" href="#" onclick="modalInformation()"
+
           console.log(element.rating);
           let num = element.rating;
          
@@ -112,8 +120,7 @@ const crearMarcador = ((place) => {
 
   // Asignamos el evento click del marcador
   google.maps.event.addListener(marker, 'click', () => {
-    infowindow.setContent(place.name);
-    infowindow.open(map, this);
+    console.log(marker);
   });
 }); 
 
