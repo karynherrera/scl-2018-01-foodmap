@@ -66,3 +66,34 @@
   margin-top: 30%;
   margin-top: 20%;
 }
+
+/*******************************MODAL***************************************/
+/*Hacemos que el menu adopte la posición más arriba posible*/
+.menu{
+  position: relative;
+  top:0;
+  transition: 0.5s ease-out;
+  padding: 50%;
+  text-align: center;
+  z-index: 20;
+  width: 50%; 
+}
+
+.close_button{ /* configurando boton de cierre del navbar*/
+  font-size: xx-large;
+  color: white;
+  position: relative;
+  right: 10px;                   
+}
+
+.menu_content{
+  padding: 10px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+@media(min-width: 768px){ /* esta medida se encuentra en bootstrap-> overview-> responsive breakpoints */
+  .menu{
+      width: 20vw; /*El menú va a tomar este ancho con pantallas de 768px hacia arriba*/
+  }
+}

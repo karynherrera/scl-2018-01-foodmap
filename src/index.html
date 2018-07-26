@@ -30,7 +30,6 @@
       </section>
     </section>
     <section id="principal">
-        
       <section class="grid">
         <section class="row">
           <section class="col-12 Justify align center">
@@ -43,7 +42,17 @@
               <div class="col-1  Justify align center">
               </div>
               <div class="col-10  Justify align center">
-              
+                  <div id="sideMenu" class="nav Justify align center float-center menu bg-dark d-none">
+                      <div onclick="closeMenu()" class="close_button">
+                        <span aria-hidden="true">&times;</span>
+                      </div>
+                      <div class="menu_content">
+                        <!--menu_content para separar el menu del botón x-->
+                        <img src="src/imagen.png" id="logo" class="img-fluid" alt="Responsive image">
+                        <h2>Restaurante</h2>
+                        <p>dakjsfhjsHDKASHDKJS</p>
+                      </div>
+                    </div>
                 <h2 class="text">Restaurantes Cerca de tí</h2>
                 <div id="map"> </div>
                 <br>
@@ -57,6 +66,7 @@
                     <div id="stars"></div>
                   </option>
                 </select>
+                <div id="img"></div>
               </div>
               <div class="col-1  Justify align center"></div>
             </section>
