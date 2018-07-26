@@ -36,22 +36,32 @@ const initMap = (() => {
     service.nearbySearch(request, (results, status) => {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
         restaurants = results;
-        console.log(restaurants);
+        console.log(restaurants.name);
         /* for (let i = 0; i < restaurants.length; i++) {
           console.log(' Restaurantes ' + restaurants[i].name);
         } */
         const selectRestaurant = document.getElementById('filtrarRestaurantes');
+
         // primero ordenamos los locales cercanos segun mayor a menor rating
         restaurants = restaurants.sort(function(localA, localB) {
-          if (localA.rating < localB.rating) {
+          if (localA.rating !== undefined) {
+            if (localB.rating !== undefined) {
+              if (localA.rating < localB.rating) {
+                return 1;
+              }
+              if (localA.rating > localB.rating) {
+                return -1;
+              }
+              return 0;
+            } else {
+              return 1;
+            }
+          } else {
             return 1;
           }
-          if (localA.rating > localB.rating) {
-            return -1;
-          }
-          return 0;
         });
 
+        
         restaurants.forEach(element =>{
           let optionNode = document.createElement('option');
           let star = document.getElementById('stars');
@@ -62,7 +72,7 @@ const initMap = (() => {
           optionNode.setAttribute('data-target', '.bd-example-modal-lg');
           optionNode.setAttribute('onclick', 'modalInformation()');
           
-// id="terminos" data-toggle="modal" data-target=".bd-example-modal-lg" href="#" onclick="modalInformation()"
+          // id="terminos" data-toggle="modal" data-target=".bd-example-modal-lg" href="#" onclick="modalInformation()"
 
           console.log(element.rating);
           let num = element.rating;
@@ -74,6 +84,7 @@ const initMap = (() => {
               stars.innerHTML += ' ★';
             }
           }
+
           if (num === undefined) {
             stars.innerHTML += '<strong> /Sin calificación</strong>';
           } else {

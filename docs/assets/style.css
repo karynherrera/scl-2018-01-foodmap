@@ -23,7 +23,25 @@
   color:#033333;
   font-weight: bold;
   font-family: Helvetica; 
-  font-size: 100%;
+  font-size: 250%;
+}
+
+
+
+#headLogo{
+  width: 30%;
+  display: inline;
+  margin-left: -20%;
+}
+
+#headTitle{
+  color:#033333;
+  font-weight: bold;
+  font-family: Helvetica; 
+  font-size: 350%;
+  margin-top: 30%;
+  margin-bottom: 20%;
+  display: inline;
 }
 /******************************SPLASH*************************************/
 .col-12{
