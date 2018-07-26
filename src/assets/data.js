@@ -36,19 +36,46 @@ const initMap = (() => {
     service.nearbySearch(request, (results, status) => {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
         restaurants = results;
-        console.log(restaurants);
 
         /* for (let i = 0; i < restaurants.length; i++) {
           console.log(' Restaurantes ' + restaurants[i].name);
         } */
         const selectRestaurant = document.getElementById('filtrarRestaurantes');
+        // primero ordenamos los locales cercanos segun mayor a menor rating
+        restaurants = restaurants.sort(function(localA, localB) {
+          if (localA.rating < localB.rating) {
+            return 1;
+          }
+          if (localA.rating > localB.rating) {
+            return -1;
+          }
+          return 0;
+        });
+
         restaurants.forEach(element =>{
           let optionNode = document.createElement('option');
-          optionNode.text = element.name + " " + element.rating
-          ;
+          let star = document.getElementById('stars');
+          let stars = document.createElement('option');
+          console.log(element.rating);
+          let num = element.rating;
+         
+          for (let i = 0; i < num; i++) {
+            if (num === undefined) {
+              stars.innerHTML += ' ';
+            } else {
+              stars.innerHTML +=' ★';
+            }
+          }
+          if (num === undefined) {
+            stars.innerHTML += '<strong> /Sin calificación</strong>';
+          } else {
+            stars.innerHTML += num+" Estrellas";
+          }
+          
+          optionNode.text = element.name + ' ';
+          optionNode.appendChild(stars);
           selectRestaurant.appendChild(optionNode);
         });
-        
 
         for (let i = 0; i < results.length; i++) {
           crearMarcador(results[i]);
@@ -72,7 +99,7 @@ const initMap = (() => {
           });
         }
       }
-    });
+    }); // fin de nearbySearch
   });
 });
 
