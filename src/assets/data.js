@@ -12,7 +12,7 @@ const initMap = (() => {
 
     let mapOptions = {
       center: myLatlng,
-      zoom: 14,
+      zoom: 16,
       mapTypeId: google.maps.MapTypeId.MAP
     };
 
@@ -20,7 +20,7 @@ const initMap = (() => {
       {
         center: {lat: lat,
           lng: lon},
-        zoom: 15
+        zoom: 16
       });
     
     infowindow = new google.maps.InfoWindow();
@@ -36,10 +36,22 @@ const initMap = (() => {
     service.nearbySearch(request, (results, status) => {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
         restaurants = results;
-        console.log(restaurants);
-        for (var i = 0; i < results.length; i++) {
+        // console.log(restaurants);
+
+        /* for (let i = 0; i < restaurants.length; i++) {
+          console.log(' Restaurantes ' + restaurants[i].name);
+        } */
+        const selectRestaurant = document.getElementById('filtrarRestaurantes');
+        restaurants.forEach(element =>{
+          let optionNode = document.createElement('option');
+          optionNode.text = element.name;
+          selectRestaurant.appendChild(optionNode);
+        });
+        
+
+        for (let i = 0; i < results.length; i++) {
           crearMarcador(results[i]);
-          console.log(results[i].name);
+          // console.log(results[i].name);
 
           // mostramos la info de cada restaurante cercano
           service.getDetails({
@@ -61,8 +73,6 @@ const initMap = (() => {
       }
     });
   });
-
-  
 });
 
 const crearMarcador = ((place) => {
@@ -78,3 +88,9 @@ const crearMarcador = ((place) => {
     infowindow.open(map, this);
   });
 }); 
+
+
+const selecRestaurant = (()=>{
+
+});
+  
