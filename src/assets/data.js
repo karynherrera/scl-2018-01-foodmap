@@ -63,13 +63,13 @@ const initMap = (() => {
             if (num === undefined) {
               stars.innerHTML += ' ';
             } else {
-              stars.innerHTML +=' ★';
+              stars.innerHTML += ' ★';
             }
           }
           if (num === undefined) {
             stars.innerHTML += '<strong> /Sin calificación</strong>';
           } else {
-            stars.innerHTML += num+" Estrellas";
+            stars.innerHTML += num + ' Estrellas';
           }
           
           optionNode.text = element.name + ' ';
