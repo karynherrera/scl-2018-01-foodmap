@@ -76,12 +76,18 @@ const initMap = (() => {
 
           console.log(element.rating);
           let num = element.rating;
+          let range = num;
          
-          for (let i = 0; i < num; i++) {
+          for (let i = 0; i < range; i++) {
             if (num === undefined) {
               stars.innerHTML += ' ';
             } else {
-              stars.innerHTML += ' ★';
+              if (num % 1 == 0) {
+                stars.innerHTML += ' ★';
+              } else { 
+                stars.innerHTML += '★';
+                range = Math.trunc(num);
+              }
             }
           }
 
