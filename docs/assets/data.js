@@ -36,7 +36,7 @@ const initMap = (() => {
     service.nearbySearch(request, (results, status) => {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
         restaurants = results;
-        console.log(restaurants.name);
+        // console.log(restaurants.name);
         /* for (let i = 0; i < restaurants.length; i++) {
           console.log(' Restaurantes ' + restaurants[i].name);
         } */
@@ -61,32 +61,30 @@ const initMap = (() => {
           }
         });
 
-        
+        // indicamos la calificacion de cada lugar con estrellas
         restaurants.forEach(element =>{
           let optionNode = document.createElement('option');
           let star = document.getElementById('stars');
           let stars = document.createElement('option');
-          
-          optionNode.setAttribute('class', 'modalInfo');
-          optionNode.setAttribute('data-toggle', 'modal');
-          optionNode.setAttribute('data-target', '.bd-example-modal-lg');
-          optionNode.setAttribute('onclick', 'modalInformation()');
-          
-          // id="terminos" data-toggle="modal" data-target=".bd-example-modal-lg" href="#" onclick="modalInformation()"
-
-          console.log(element.rating);
+          // console.log(element.rating);
           let num = element.rating;
+          let range = num;
          
-          for (let i = 0; i < num; i++) {
+          for (let i = 0; i < range; i++) {
             if (num === undefined) {
               stars.innerHTML += ' ';
             } else {
-              stars.innerHTML += ' ★';
+              if (num % 1 == 0) {
+                stars.innerHTML += ' ★';
+              } else { 
+                stars.innerHTML += '★';
+                range = Math.trunc(num);
+              }
             }
           }
 
           if (num === undefined) {
-            stars.innerHTML += '<strong> /Sin calificación</strong>';
+            stars.innerHTML += '/ Sin calificación';
           } else {
             stars.innerHTML += num + ' Estrellas';
           }
@@ -100,12 +98,12 @@ const initMap = (() => {
           crearMarcador(results[i]);
           // console.log(results[i].name);
 
-          // mostramos la info de cada restaurante cercano
+          // mostramos la info de cada restaurante cercano 
           service.getDetails({
             placeId: results[i].place_id
           }, function(place, status) {
             if (status === google.maps.places.PlacesServiceStatus.OK) {
-              var marker = new google.maps.Marker({
+              let marker = new google.maps.Marker({
                 map: map,
                 position: place.geometry.location
               });
@@ -123,15 +121,19 @@ const initMap = (() => {
 });
 
 const crearMarcador = ((place) => {
+  // console.log(place);
   // Creamos un marcador
   let marker = new google.maps.Marker({
     map: map,
-    position: place.geometry.location
+    position: place.geometry.location,
+    lugar: place.name
   });
 
   // Asignamos el evento click del marcador
   google.maps.event.addListener(marker, 'click', () => {
-    console.log(marker);
+    let locales = restaurants;
+    // console.log(locales);
+    // console.log(marker.lugar);
   });
 }); 
 
