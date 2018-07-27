@@ -81,11 +81,13 @@
 
 #textModal{
   text-align: center;
-  right: 50%;
+  position: absolute;
+  
 }
 
 #infoRestaurant{
   text-align: center;
+  
 }
 
 .close_button{ /* configurando boton de cierre del modal*/
@@ -103,6 +105,8 @@
   text-align: center;
   color: #ffffff;
   font-size: 200%;
+  position: relative;
+  right: -150%;
 }
 
 @media(min-width: 768px){ /* esta medida se encuentra en bootstrap-> overview-> responsive breakpoints */

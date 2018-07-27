@@ -52,7 +52,7 @@ function openMenu() {
   if (resultRest) {
     results.forEach(element => {
       const modal = document.getElementById('infoRestaurant');
-      modal.innerHTML = `<div id="textModal">Restaurante:${nameRest}</div>`;
+      modal.innerHTML = `<div id="textModal"><h2>Restaurante:<br>${nameRest}</div>`;
     });
   }
 }
